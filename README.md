@@ -18,7 +18,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Provision chef-client to Raspberry Pi:
+
+    cd chef
+    ../bin/knife solo prepare pi@192.168.1.110
+
+Cook it:
+
+    bin/knife 
+
 
 ## Contributing
 

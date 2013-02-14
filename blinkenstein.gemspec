@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_development_dependency('rspec')
-  gem.add_development_dependency('chef')
+  gem.add_development_dependency('knife-solo')
   
   gem.add_dependency('celluloid')
   gem.add_dependency('rb-blink1')

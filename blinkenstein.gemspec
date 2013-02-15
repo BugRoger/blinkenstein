@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Blinkenstein::VERSION
   gem.authors       = ["Michael Schmidt"]
   gem.email         = ["michael.j.schmidt@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Blink(1) Monitoring Thinggy}
+  gem.summary       = %q{Currently monitors Eve Online's skill queue and messes with Blink(1)'}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
@@ -17,9 +17,6 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_development_dependency('rspec')
-  gem.add_development_dependency('knife-solo')
-  
   gem.add_dependency('celluloid')
   gem.add_dependency('rb-blink1')
   gem.add_dependency('httparty')

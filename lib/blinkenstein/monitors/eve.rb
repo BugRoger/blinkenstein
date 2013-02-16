@@ -1,6 +1,5 @@
 require 'celluloid'
 require 'httparty'
-require 'nokogiri'
 
 module Blinkenstein 
   class EveMonitor 

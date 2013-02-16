@@ -4,14 +4,16 @@ module Blinkenstein
   class Runner 
     include Celluloid
 
-    attr_reader :blink
     attr_reader :monitors
 
     def initialize
       @monitors = []
-      @blink    = Blink.new
 
-      register(EveMonitor.new(blink))
+      register(EveSkillQueueMonitor.new)
+
+      every(15) do
+        @monitors.each(&:refresh)
+      end
     end
 
     def register(monitor)

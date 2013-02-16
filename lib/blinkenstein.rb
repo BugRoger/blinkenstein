@@ -9,6 +9,6 @@ module Blinkenstein
   end
 end
 
-require "blinkenstein/monitors/eve"
+require "blinkenstein/monitors/eve_skill_queue_monitor"
 
 

@@ -10,3 +10,17 @@ gemspec
     gem lib, :git => "git://github.com/bugroger/#{lib}.git"
   end
 end
+
+
+group :development do
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'rake'
+  gem 'rb-fsevent', :require => false
+end
+
+group :test do
+  gem 'vcr'
+  gem 'webmock'
+  gem 'rspec'
+end

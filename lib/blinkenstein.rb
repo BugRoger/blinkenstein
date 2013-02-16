@@ -2,7 +2,6 @@ require "celluloid"
 
 require "blinkenstein/version"
 require "blinkenstein/runner"
-require "blinkenstein/blink"
 
 module Blinkenstein
   class SupervisionGroup < Celluloid::SupervisionGroup

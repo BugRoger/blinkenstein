@@ -1,5 +1,6 @@
 require 'celluloid'
 require 'httparty'
+require 'blink1-patterns'
 
 module Blinkenstein 
   class EveMonitor 

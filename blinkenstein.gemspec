@@ -16,7 +16,9 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.executables   = `git ls-files -- exe/*`.split("\n").map{ |f| File.basename(f) }
   gem.require_paths = ["lib"]
+  gem.bindir        = 'exe'
 
+  gem.add_development_dependency('bundler')
   gem.add_development_dependency('rake')
 
   gem.add_dependency('celluloid')

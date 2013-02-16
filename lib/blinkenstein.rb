@@ -1,3 +1,5 @@
+require "celluloid"
+
 require "blinkenstein/version"
 require "blinkenstein/runner"
 require "blinkenstein/blink"

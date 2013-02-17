@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 
 gemspec
 
+
+gem 'rake'
+
 %w[blink1-patterns].each do |lib|
   library_path = File.expand_path("../../#{lib}", __FILE__)
   if File.exist?(library_path)
@@ -10,7 +13,6 @@ gemspec
     gem lib, :git => "git://github.com/BugRoger/#{lib}.git"
   end
 end
-
 
 group :development do
   gem 'guard'

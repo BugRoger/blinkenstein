@@ -3,22 +3,19 @@ require 'celluloid'
 module Blinkenstein 
   class Runner 
     include Celluloid
-
-    attr_reader :monitors
+    include Logging
 
     def initialize
-      @monitors = []
-
-      register(EveSkillQueueMonitor.new)
+      refresh_all
 
       every(15) do
-        @monitors.each(&:refresh)
+        refresh_all
       end
     end
 
-    def register(monitor)
-      @monitors << monitor
-      monitor.refresh
+    def refresh_all
+      logger.debug "Refreshing all monitors"
+      Monitor.repository.each(&:refresh)
     end
   end
 end

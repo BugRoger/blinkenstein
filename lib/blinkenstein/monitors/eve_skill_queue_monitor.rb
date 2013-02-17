@@ -1,8 +1,12 @@
+require 'blinkenstein'
 require 'blink1-patterns'
-require 'eve/skill_queue'
+require 'eve'
 
 module Blinkenstein 
   class EveSkillQueueMonitor 
+    include Monitor
+    include Logging
+
     def refresh 
       update_blink
     end
@@ -22,22 +26,22 @@ module Blinkenstein
     end
 
     def cool 
-      puts "Everything is cool. #{hours_left}h left."
+      logger.info "Everything is cool. #{hours_left}h left."
       Blink::Patterns.breath("#00ff00", 4, 0.2)
     end
 
     def nervous
-      puts "There's room in the queue. #{hours_left}h left."
+      logger.info "There's room in the queue. #{hours_left}h left."
       Blink::Patterns.breath("#ff0000", 3, 0.3)
     end
 
     def panic
-      puts "Queue runs out soon. #{hours_left}h left."
+      logger.info "Queue runs out soon. #{hours_left}h left."
       Blink::Patterns.police
     end
 
     def error
-      puts "Ehm. Something is wrong"
+      logger.info "Ehm. Something is wrong"
       Blink::Patterns.breath("#ff0000", 0.25, 0.75)
     end
   end

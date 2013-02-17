@@ -1,5 +1,7 @@
 # Blinkenstein
 
+[![Build Status](https://travis-ci.org/[BugRoger]/[blinkenstein].png)](https://travis-ci.org/[BugRoger]/[blinkenstein])
+
 TODO: Write a gem description
 
 ## Installation

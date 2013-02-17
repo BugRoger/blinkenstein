@@ -7,7 +7,7 @@ gemspec
   if File.exist?(library_path)
     gem lib, :path => library_path
   else
-    gem lib, :git => "git://github.com/bugroger/#{lib}.git"
+    gem lib, :git => "git://github.com/BugRoger/#{lib}.git"
   end
 end
 

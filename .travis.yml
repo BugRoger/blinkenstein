@@ -3,3 +3,6 @@ bundler_args: --without development
 rvm:
   - 1.9.3
   - 2.0.0
+before_install:
+  - sudo apt-get install -qq gcc-avr avr-libc
+  - sudo apt-get install -qq libusb-1.0-0-dev

@@ -4,7 +4,7 @@ require 'blink1-patterns'
 require 'vcr'
 
 module Blinkenstein 
-  class EveClient
+  class Eve
     include HTTParty
     base_uri 'https://api.eveonline.com'
 
@@ -38,41 +38,81 @@ module Blinkenstein
     def query
       @query ||= configure
     end
+
+    def self.parse_date(eve_date)
+      DateTime.strptime(eve_date, '%Y-%m-%d %H:%M:%S') rescue nil
+    end
   end
 
+  class Response
+    def initialize(response)
+      @response = response
+    end
 
-  class SkillQueue < EveClient
+
+  end
+
+  class SkillQueue < Eve
+    attr_reader :expire_time
 
     def initialize
-      @cached_until = Time.now - 1
-      @hours_left   = -1
+      @expire_time = Time.now - 1
     end
 
     def hours_left
-      return @hours_left if Time.now < @cached_until 
+      refresh
 
-      puts "Fetching Update"
-      
-      response = self.class.get('/char/SkillQueue.xml.aspx', query: query)
-      parse(response)
-
-      @hours_left
+      return ((end_time - current_time) * 24).to_i if end_time 
+      return  0 if paused? || empty?
+      return -1 if blocked?
+      -1
     end
-    
-    def parse(response)
-      @hours_left   = -1
-      @cached_until = Time.now + 60
 
-      currentTime = DateTime.strptime(response["eveapi"]['currentTime'], '%Y-%m-%d %H:%M:%S')
-      cachedUntil = DateTime.strptime(response["eveapi"]['cachedUntil'], '%Y-%m-%d %H:%M:%S')
-      skills      = ([] << response["eveapi"]["result"]["rowset"]["row"]).flatten.last
+    def paused?
+      return false if blocked?
 
-      @cached_until = Time.now + ((cachedUntil - currentTime) * 24 * 60 * 60).to_i
+      last_skill.fetch("endTime", false) == "" 
+    end
+
+    def blocked?
+      @response.fetch("eveapi", {}).fetch("error", false)
+    end
+
+    def empty?
+      return false if blocked?
       
-      if skills && skills["endTime"] && skills['endTime'] != '' 
-        endTime = DateTime.strptime(skills["endTime"], '%Y-%m-%d %H:%M:%S') 
-        @hours_left = ((endTime - currentTime)     * 24).to_i
+      last_skill.empty?
+    end
+
+    def last_skill
+      @last_skill ||= Array[@response.fetch("eveapi", {}).fetch("result", {}).fetch("rowset", {}).fetch("row", {})].flatten.last
+    end
+
+    def current_time 
+      Eve.parse_date(@response.fetch("eveapi", {}).fetch("currentTime", {}))
+    end
+
+    def cached_until
+      Eve.parse_date(@response.fetch("eveapi", {}).fetch("cachedUntil", {}))
+    end
+
+    def end_time
+      Eve.parse_date(last_skill.fetch("endTime", ""))
+    end
+
+    def update_cache
+      if current_time && cached_until
+        @expire_time = Time.now + ((cached_until - current_time) * 24 * 60 * 60).to_i
+      else
+        @expire_time = Time.now + 60 
       end
+    end
+
+    def refresh 
+      return if @response && Time.now < @expire_time 
+
+      @response = self.class.get('/char/SkillQueue.xml.aspx', query: query)
+      update_cache 
     end
   end
 
@@ -89,9 +129,10 @@ module Blinkenstein
 
     def update_blink
       case 
-      when hours_left < 8                      then panic
-      when hours_left > 8  && hours_left <= 24 then nervous
-      when hours_left > 24                     then cool 
+      when hours_left < 0 then error
+      when hours_left < 8 && hours_left >= 0  then panic
+      when hours_left > 8 && hours_left <= 24 then nervous
+      when hours_left > 24 then cool 
       end
     end
 

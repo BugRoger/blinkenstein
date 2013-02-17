@@ -10,5 +10,3 @@ module Blinkenstein
 end
 
 require "blinkenstein/monitors/eve_skill_queue_monitor"
-
-

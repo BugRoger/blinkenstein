@@ -97,22 +97,22 @@ module Blinkenstein
 
     def cool 
       puts "Everything is cool. #{hours_left}h left."
-    #  Blink1Patterns.breath("#00ff00", 4, 0.2)
+      Blink::Patterns.breath("#00ff00", 4, 0.2)
     end
 
     def nervous
       puts "There's room in the queue. #{hours_left}h left."
-    #  Blink1Patterns.breath("#ff0000", 3, 0.3)
+      Blink::Patterns.breath("#ff0000", 3, 0.3)
     end
 
     def panic
       puts "Queue runs out soon. #{hours_left}h left."
-    #  Blink1Patterns.police
+      Blink::Patterns.police
     end
 
     def error
       puts "Ehm. Something is wrong"
-    #  Blink1Patterns.breath("#ff0000", 0.25, 0.75)
+      Blink::Patterns.breath("#ff0000", 0.25, 0.75)
     end
   end
 end

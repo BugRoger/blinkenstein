@@ -17,4 +17,3 @@ require "blinkenstein/monitors/eve_skill_queue_monitor"
 at_exit do
   Blink::Patterns.off
 end
-

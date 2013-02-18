@@ -1,5 +1,4 @@
 require "celluloid"
-require "blink1-patterns"
 
 require "blinkenstein/version"
 require "blinkenstein/logging"
@@ -14,6 +13,3 @@ end
 
 require "blinkenstein/monitors/eve_skill_queue_monitor"
 
-at_exit do
-  Blink::Patterns.off
-end

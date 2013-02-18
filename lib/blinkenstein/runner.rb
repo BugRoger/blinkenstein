@@ -1,4 +1,5 @@
 require 'celluloid'
+require "blink1"
 
 module Blinkenstein 
   class Runner 
@@ -16,6 +17,12 @@ module Blinkenstein
     def refresh_all
       logger.debug "Refreshing all monitors"
       Monitor.repository.each(&:refresh)
+    end
+
+    def finalize
+      Blink1.open do |blink1|
+        blink1.off
+      end
     end
   end
 end

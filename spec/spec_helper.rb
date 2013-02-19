@@ -1,3 +1,6 @@
+require "blinkenstein/logging"
+Blinkenstein.logger = nil
+
 Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
 
 RSpec.configure do |config|
@@ -11,3 +14,4 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 end
+

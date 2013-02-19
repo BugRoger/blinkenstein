@@ -60,7 +60,7 @@ class Eve::SkillQueue < Eve::Base
 
   def refresh 
     return if @response && Time.now < @expire_time 
-    logger.info "Updating Skillqueue from Eve-API"
+    info "Updating Skillqueue from Eve-API"
     @response = self.class.get('/char/SkillQueue.xml.aspx', query: query)
     update_cache 
   end

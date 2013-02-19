@@ -26,22 +26,22 @@ module Blinkenstein
     end
 
     def cool 
-      logger.info "Everything is cool. #{hours_left}h left."
+      info "Everything is cool. #{hours_left}h left."
       Blink::Patterns.breath("#00ff00", 4, 0.2)
     end
 
     def nervous
-      logger.info "There's room in the queue. #{hours_left}h left."
+      info "There's room in the queue. #{hours_left}h left."
       Blink::Patterns.breath("#ff0000", 3, 0.3)
     end
 
     def panic
-      logger.info "Queue runs out soon. #{hours_left}h left."
+      info "Queue runs out soon. #{hours_left}h left."
       Blink::Patterns.police
     end
 
     def error
-      logger.info "Ehm. Something is wrong"
+      info "Ehm. Something is wrong"
       Blink::Patterns.breath("#ff0000", 0.25, 0.75)
     end
   end

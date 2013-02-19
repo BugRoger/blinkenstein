@@ -1,5 +1,5 @@
 require "spec_helper"
-require "blinkenstein/monitors/eve_skill_queue_monitor"
+require "blinkenstein"
 
 module Blinkenstein
   describe EveSkillQueueMonitor do

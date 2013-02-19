@@ -13,3 +13,4 @@ end
 
 require "blinkenstein/monitors/eve_skill_queue_monitor"
 
+Celluloid.logger.level = Logger::ERROR

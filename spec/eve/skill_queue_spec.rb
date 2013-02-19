@@ -1,5 +1,4 @@
 require "spec_helper"
-require "eve/skill_queue"
 
 module Eve
   describe SkillQueue do

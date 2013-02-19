@@ -7,7 +7,7 @@ module Blinkenstein
     end
 
     def self.included(klass)
-      logger.info "Registering monitor #{klass}"
+      info "Registering monitor #{klass}"
       repository << klass.new
     end
   end

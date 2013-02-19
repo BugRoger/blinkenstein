@@ -1,3 +1,5 @@
+require "spec_helper"
+
 module Eve 
   describe Base do
     describe "parse_date" do

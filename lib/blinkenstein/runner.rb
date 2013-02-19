@@ -7,6 +7,7 @@ module Blinkenstein
     include Logging
 
     def initialize
+      register_all
       refresh_all
 
       every(15) do
@@ -14,9 +15,16 @@ module Blinkenstein
       end
     end
 
+    def register_all
+      @monitors = Monitor.monitors.map do |monitor|
+        info "Registering montitor: #{monitor}"
+        monitor.new
+      end
+    end
+
     def refresh_all
       debug "Refreshing all monitors"
-      Monitor.repository.each(&:refresh)
+      @monitors.each(&:refresh)
     end
 
     def finalize

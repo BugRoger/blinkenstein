@@ -8,7 +8,7 @@ module Blinkenstein
     describe "refresh" do
       it "goes into error mode if queue left is < 0" do
         monitor.stub(:hours_left).and_return(-1)
-        monitor.should_receive(:error)
+        monitor.should_receive(:failure)
         monitor.refresh
       end
 
@@ -28,6 +28,14 @@ module Blinkenstein
         monitor.stub(:hours_left).and_return(0)
         monitor.should_receive(:panic)
         monitor.refresh
+      end
+    end
+
+    describe ".hours_left" do
+      it "is showing a failure if something is wrong while calling the API" do
+        Eve::SkillQueue.any_instance.stub(:hours_left).and_raise("whatever")
+        monitor.should_receive(:failure)
+        monitor.hours_left
       end
     end
   end

@@ -1,14 +1,13 @@
 module Blinkenstein
   module Monitor
-    extend Logging
-    
-    def self.repository
-      @repository ||= []
+    class << self
+      attr_accessor :monitors
     end
 
+    @monitors = []
+
     def self.included(klass)
-      info "Registering monitor #{klass}"
-      repository << klass.new
+      @monitors << klass
     end
   end
 end

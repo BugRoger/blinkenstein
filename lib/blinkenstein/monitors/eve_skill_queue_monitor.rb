@@ -7,18 +7,25 @@ module Blinkenstein
     include Monitor
     include Logging
 
+    def initialize
+      @skillQueue ||= Eve::SkillQueue.new
+    end
+
     def refresh 
       update_blink
     end
 
     def hours_left
-      @skillQueue ||= Eve::SkillQueue.new
       @skillQueue.hours_left
+    rescue => e
+      error "Something is wrong: #{e}"
+      error e.backtrace.join("\n")
+      failure
     end
 
     def update_blink
       case 
-      when hours_left < 0 then error
+      when hours_left < 0 then failure
       when hours_left < 8 && hours_left >= 0  then panic
       when hours_left > 8 && hours_left <= 24 then nervous
       when hours_left > 24 then cool 
@@ -40,8 +47,7 @@ module Blinkenstein
       Blink::Patterns.police
     end
 
-    def error
-      info "Ehm. Something is wrong"
+    def failure 
       Blink::Patterns.breath("#ff0000", 0.25, 0.75)
     end
   end

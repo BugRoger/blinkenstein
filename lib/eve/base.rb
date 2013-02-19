@@ -14,7 +14,7 @@ module Eve
       begin
         config = YAML.load(File.read(File.expand_path('~/.eve-api')))
       rescue Errno::ENOENT
-        raise "No ~/.eve-monitor config. The skill queue monitor can't start..." 
+        raise "No ~/.eve-api config. The skill queue monitor can't start..." 
       rescue Psych::SyntaxError
         raise "Invalid syntax in ~/.eve-api. The skill queue monitor can't start..." 
       end

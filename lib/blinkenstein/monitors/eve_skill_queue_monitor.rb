@@ -21,6 +21,7 @@ module Blinkenstein
 
     def update_blink
       case 
+      when hours_left == nil then raise "wut"
       when hours_left < 0 then failure
       when hours_left < 8 && hours_left >= 0  then panic
       when hours_left > 8 && hours_left <= 24 then nervous

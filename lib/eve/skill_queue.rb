@@ -29,9 +29,9 @@ class Eve::SkillQueue < Eve::Base
       info "Couldn't fetch updates: API is blocked."
       return -1 
     end
-    -2
+
   rescue => e
-    error "Couldn't fetch updates: #{e}'"
+    error "Couldn't fetch updates: #{e}"
     -1
   end
 

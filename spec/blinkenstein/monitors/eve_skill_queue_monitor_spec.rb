@@ -33,9 +33,9 @@ module Blinkenstein
 
     describe ".hours_left" do
       it "is showing a failure if something is wrong while calling the API" do
-        Eve::SkillQueue.any_instance.stub(:hours_left).and_raise("whatever")
+        Eve::SkillQueue.any_instance.stub(:refresh).and_raise(RuntimeError)
         monitor.should_receive(:failure)
-        monitor.hours_left
+        monitor.refresh
       end
     end
   end

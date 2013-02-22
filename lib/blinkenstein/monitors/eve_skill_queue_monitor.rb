@@ -17,10 +17,6 @@ module Blinkenstein
 
     def hours_left
       @skillQueue.hours_left
-    rescue => e
-      error "Something is wrong: #{e}"
-      error e.backtrace.join("\n")
-      failure
     end
 
     def update_blink

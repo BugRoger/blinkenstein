@@ -13,8 +13,25 @@ class Eve::SkillQueue < Eve::Base
     refresh
 
     return ((end_time - current_time) * 24).to_i if end_time 
-    return  0 if paused? || empty?
-    return -1 if blocked?
+
+    if empty?
+      info "Skill Queue is empty..."
+      return 0
+    end
+
+    if paused?
+      info "Skill Queue is paused..."
+      return 0
+    end
+
+
+    if blocked?
+      info "Couldn't fetch updates: API is blocked."
+      return -1 
+    end
+    -2
+  rescue => e
+    error "Couldn't fetch updates: #{e}'"
     -1
   end
 

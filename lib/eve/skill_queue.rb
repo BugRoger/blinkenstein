@@ -52,7 +52,7 @@ class Eve::SkillQueue < Eve::Base
   end
 
   def last_skill
-    @last_skill ||= Array[@response.fetch("eveapi", {}).fetch("result", {}).fetch("rowset", {}).fetch("row", {})].flatten.last
+    @last_skill = Array[@response.fetch("eveapi", {}).fetch("result", {}).fetch("rowset", {}).fetch("row", {})].flatten.last
   end
 
   def current_time 
